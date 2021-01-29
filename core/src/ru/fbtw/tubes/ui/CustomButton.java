@@ -66,6 +66,5 @@ public class CustomButton implements Renderable {
 
     public void setClickListener(CustomClickListener clickListener) {
         this.clickListener = clickListener;
-        //setOnClick();
     }
 }

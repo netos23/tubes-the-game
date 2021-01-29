@@ -62,6 +62,7 @@ public class GameState extends State {
         graph = new TubeGraphBuilder(w, h)
                 .setDefaultOrigin()
                 .setDestination(w - 1, h - 1)
+                .setShuffle(true)
                 .build();
 
         // инициализация графики

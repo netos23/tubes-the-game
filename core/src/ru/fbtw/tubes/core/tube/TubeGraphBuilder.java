@@ -21,6 +21,7 @@ public class TubeGraphBuilder {
 
     private HashSet<RectangleGraphEntity> checked;
     private LinkedList<RectangleGraphEntity> nodesList;
+    private boolean shuffle;
 
     public TubeGraphBuilder(int w, int h) {
         this.w = w;
@@ -134,6 +135,34 @@ public class TubeGraphBuilder {
         return this;
     }
 
+    public TubeGraphBuilder setShuffle(boolean shuffle) {
+        this.shuffle = shuffle;
+        return this;
+    }
+
+    private void shuffle(TubeGraph graph) {
+        TubeEntity[][] entities = (TubeEntity[][]) graph.adjacencyMatrix();
+        Random random = new Random();
+        for (int r = 0, entitiesLength = entities.length; r < entitiesLength; r++) {
+            for (int c = 0, rowLength = entities[0].length; c < rowLength; c++) {
+                if (random.nextInt(1001) < 900) {
+                    int chance = random.nextInt(3001);
+                    int rotCount;
+                    if (chance < 1000) {
+                        rotCount = 1;
+                    } else if (chance < 2000) {
+                        rotCount = 2;
+                    } else {
+                        rotCount = 3;
+                    }
+                    for (int rotation = 0; rotation < rotCount; rotation++) {
+                        graph.rotate(r, c);
+                    }
+                }
+            }
+        }
+    }
+
     public TubeGraph build() {
         generate();
 
@@ -143,6 +172,12 @@ public class TubeGraphBuilder {
             destination = new Vector2<>(index, h - 1);
         }
 
-        return new TubeGraph(baseGraph, origin, destination);
+        TubeGraph tubeGraph = new TubeGraph(baseGraph, origin, destination);
+
+        if (shuffle) {
+            shuffle(tubeGraph);
+        }
+
+        return tubeGraph;
     }
 }
