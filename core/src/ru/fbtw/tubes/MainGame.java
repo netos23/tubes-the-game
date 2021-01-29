@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ru.fbtw.tubes.core.Difficulty;
 import ru.fbtw.tubes.graphics.TextureLoader;
 import ru.fbtw.tubes.os.Platform;
-import ru.fbtw.tubes.state.GameState;
+import ru.fbtw.tubes.state.GameOverState;
 import ru.fbtw.tubes.state.GameStateManager;
 
 public class MainGame extends ApplicationAdapter {
@@ -34,7 +34,8 @@ public class MainGame extends ApplicationAdapter {
             HEIGHT = Gdx.graphics.getHeight();
         }
 
-        gsm.push(new GameState(gsm, Difficulty.EASY));
+        //gsm.push(new GameState(gsm, Difficulty.EASY));
+        gsm.push(new GameOverState(gsm, true, 100, Difficulty.EASY));
     }
 
 
